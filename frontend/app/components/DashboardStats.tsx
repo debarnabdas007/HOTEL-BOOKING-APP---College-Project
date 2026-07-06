@@ -27,7 +27,7 @@ export default function DashboardStats({
       description: `Matching city criteria`,
       icon: (
         <svg
-          className="w-6 h-6 text-primary-btn-bg"
+          className="w-6 h-6 text-accent"
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
@@ -52,7 +52,7 @@ export default function DashboardStats({
       description: "Ready for check-in",
       icon: (
         <svg
-          className="w-6 h-6 text-primary-btn-bg"
+          className="w-6 h-6 text-low-fg"
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
@@ -77,7 +77,7 @@ export default function DashboardStats({
       description: `${reservationWindowStart} to ${reservationWindowEnd}`,
       icon: (
         <svg
-          className="w-6 h-6 text-primary-btn-bg"
+          className="w-6 h-6 text-high-fg"
           fill="none"
           stroke="currentColor"
           strokeWidth="2"

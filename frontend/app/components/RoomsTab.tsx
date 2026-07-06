@@ -93,22 +93,21 @@ export default function RoomsTab({ onLoad }: RoomsTabProps) {
   return (
     <div className="space-y-6">
       {/* Header & Filter Controls Container */}
-      <div className="p-6 rounded-xl bg-card-bg border border-border shadow-[0_2px_8px_-3px_rgba(0,0,0,0.05),0_8px_20px_-4px_rgba(0,0,0,0.03)] space-y-5">
+      <div className="p-6 rounded-xl bg-card-bg border border-border space-y-4">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="space-y-1">
-            <h2 className="text-xl font-extrabold text-primary-text tracking-tight">
+            <h2 className="text-2xl font-semibold text-primary-text tracking-wide">
               Available Rooms Directory
             </h2>
-            <p className="text-xs text-secondary-text font-medium">
-              DBMS Query 2: List rooms that are marked available (Availability =
-              1)
+            <p className="text-sm text-secondary-text pt-1 font-medium">
+              List rooms that are currently available
             </p>
           </div>
 
           <button
             onClick={fetchAvailableRooms}
             disabled={loading}
-            className="px-4 py-2 bg-secondary-btn border border-border-btn hover:bg-secondary-btn-hover text-secondary-btn-text disabled:opacity-50 hover:-translate-y-0.5 rounded-xl font-bold text-xs transition-all flex items-center gap-2 cursor-pointer w-fit shadow-sm active:translate-y-0"
+            className="px-4 py-2 bg-secondary-btn border border-border hover:bg-secondary-btn-hover text-secondary-btn-text disabled:opacity-50 rounded-xl font-bold text-xs transition-all flex items-center gap-2 cursor-pointer w-fit"
           >
             <svg
               className={`w-3.5 h-3.5 ${loading ? "animate-spin" : ""}`}
@@ -123,7 +122,7 @@ export default function RoomsTab({ onLoad }: RoomsTabProps) {
                 d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 7.89H18"
               />
             </svg>
-            Refresh Directory
+            Refresh
           </button>
         </div>
 
@@ -131,7 +130,7 @@ export default function RoomsTab({ onLoad }: RoomsTabProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-border/60">
           {/* Room Type select */}
           <div className="space-y-2">
-            <label className="text-[10px] font-bold text-muted-text uppercase tracking-widest block">
+            <label className="text-sm font-bold text-secondary-text block">
               Room Category
             </label>
             <div className="flex flex-wrap gap-1.5">
@@ -139,10 +138,10 @@ export default function RoomsTab({ onLoad }: RoomsTabProps) {
                 <button
                   key={type}
                   onClick={() => setSelectedType(type)}
-                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer shadow-sm ${
+                  className={`px-3.5 py-1.5 rounded-xl text-sm font-bold border transition-all cursor-pointer ${
                     selectedType === type
-                      ? "bg-low-bg border-low-fg/40 text-low-fg"
-                      : "bg-slate-50 border-border hover:bg-navbar-hover text-secondary-text"
+                      ? "bg-primary-btn text-primary-btn-text border-primary-btn"
+                      : "bg-navbar-bg border-border text-secondary-text"
                   }`}
                 >
                   {type}
@@ -150,64 +149,8 @@ export default function RoomsTab({ onLoad }: RoomsTabProps) {
               ))}
             </div>
           </div>
-
-          {/* Max Price slider */}
-          <div className="space-y-3">
-            <div className="flex justify-between items-center text-xs">
-              <label className="text-[10px] font-bold text-muted-text uppercase tracking-widest block">
-                Max Price per Night
-              </label>
-              <span className="text-low-fg font-extrabold font-mono text-xs bg-low-bg px-2.5 py-0.5 rounded-lg border border-low-fg/10">
-                ₹{maxPrice.toLocaleString()}
-              </span>
-            </div>
-            <div className="pt-1">
-              <input
-                type="range"
-                min="0"
-                max={
-                  rooms.length > 0
-                    ? Math.max(...rooms.map((r) => Number(r.Price_Per_Night))) +
-                      1000
-                    : 30000
-                }
-                step="500"
-                value={maxPrice}
-                onChange={(e) => setMaxPrice(Number(e.target.value))}
-                className="w-full h-1 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-low-fg"
-              />
-              <div className="flex justify-between text-[10px] text-muted-text font-mono mt-1.5 font-bold">
-                <span>₹0</span>
-                <span>
-                  ₹
-                  {(rooms.length > 0
-                    ? Math.max(...rooms.map((r) => Number(r.Price_Per_Night)))
-                    : 30000
-                  ).toLocaleString()}
-                  +
-                </span>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
-
-      {/* SQL Query Debug Display */}
-      {executedSQL && (
-        <div className="p-4 rounded-xl bg-slate-50 border border-border shadow-inner flex flex-col md:flex-row md:items-center justify-between gap-3">
-          <div className="flex items-center gap-3">
-            <span className="text-low-fg px-2 py-0.5 rounded-lg bg-low-bg font-extrabold uppercase text-[9px] tracking-wider border border-low-fg/10 font-sans">
-              SQL ENGINE
-            </span>
-            <span className="font-mono text-[11px] text-primary-text font-medium select-all break-all leading-normal">
-              {executedSQL}
-            </span>
-          </div>
-          <span className="text-[10px] text-accent font-bold uppercase tracking-wider font-mono">
-            Active DBMS Fetch
-          </span>
-        </div>
-      )}
 
       {/* Main room grid */}
       {loading ? (
@@ -251,28 +194,25 @@ export default function RoomsTab({ onLoad }: RoomsTabProps) {
           {filteredRooms.map((room) => (
             <div
               key={room.Room_ID}
-              className="group overflow-hidden rounded-xl border border-border bg-card-bg hover:border-border-btn shadow-[0_1px_3px_rgba(0,0,0,0.01),0_4px_12px_-3px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_-6px_rgba(0,0,0,0.06),0_12px_28px_-4px_rgba(0,0,0,0.02)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+              className="group overflow-hidden rounded-xl border border-border bg-card-bg transition-all duration-300 flex flex-col justify-between"
             >
               {/* Room Body */}
               <div className="p-5 space-y-4">
                 <div className="flex items-start justify-between">
                   <div className="space-y-1.5">
-                    <span className="text-[9px] font-extrabold text-low-fg uppercase tracking-widest bg-low-bg px-2.5 py-0.5 rounded-full border border-low-fg/10 font-sans">
-                      {room.Room_Type}
-                    </span>
                     <h3 className="text-base font-bold text-primary-text leading-tight pt-1">
                       Room {room.Room_No}
                     </h3>
                   </div>
 
-                  <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded-lg bg-slate-50 border border-border text-secondary-text">
+                  <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded-lg bg-navbar-bg border border-border text-secondary-text">
                     ID: #{room.Room_ID}
                   </span>
                 </div>
               </div>
 
               {/* Room Footer */}
-              <div className="p-4 bg-slate-50/50 border-t border-border flex items-center justify-between">
+              <div className="p-4 flex items-center justify-between">
                 <div>
                   <span className="text-[9px] text-muted-text uppercase tracking-wider block font-bold">
                     Price Rate
@@ -285,10 +225,9 @@ export default function RoomsTab({ onLoad }: RoomsTabProps) {
                   </span>
                 </div>
 
-                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-low-bg border border-low-fg/10 text-low-fg text-[10px] font-extrabold shadow-sm">
-                  <span className="w-1.5 h-1.5 rounded-full bg-low-fg animate-pulse" />
-                  Available
-                </div>
+                <span className="text-xs font-semibold text-low-fg bg-low-bg px-2.5 py-0.5 rounded-full border border-low-fg/10 font-sans">
+                  {room.Room_Type}
+                </span>
               </div>
             </div>
           ))}
