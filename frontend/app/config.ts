@@ -14,5 +14,6 @@ export const API_ENDPOINTS = {
   reservations: {
     active: (startDate: string, endDate: string) =>
       `/api/reservations/active?start_date=${startDate}&end_date=${endDate}`,
+    book: `/api/reservations/book`,
   },
 };

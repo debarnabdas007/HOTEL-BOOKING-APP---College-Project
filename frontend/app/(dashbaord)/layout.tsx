@@ -14,7 +14,6 @@ export default function DashboardLayout({
 }) {
   const pathname = usePathname();
   const {
-    searchedCity,
     hotelsCount,
     availableRoomsCount,
     activeReservationsCount,
@@ -131,7 +130,6 @@ export default function DashboardLayout({
               Metrics
             </h2>
             <DashboardStats
-              searchedCity={searchedCity}
               hotelsInCityCount={hotelsCount}
               availableRoomsCount={availableRoomsCount}
               activeReservationsCount={activeReservationsCount}

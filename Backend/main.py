@@ -13,7 +13,7 @@ def get_hotels_by_city(city: str):
     
     try:
         # We use %s to safely inject the city variable into the SQL query
-        query = "SELECT Hotel_Name FROM Hotels WHERE City = %s"
+        query = "SELECT Hotel_ID, Hotel_Name FROM Hotels WHERE City = %s"
         cursor.execute(query, (city,))
         hotels = cursor.fetchall()
         return {"city": city, "hotels": hotels}
@@ -34,7 +34,7 @@ def get_available_rooms():
     cursor = db.cursor(dictionary=True)
     
     try:
-        query = "SELECT Room_ID, Room_No, Room_Type, Price_Per_Night FROM Rooms WHERE Availability = 1"
+        query = "SELECT Room_ID, Hotel_ID, Room_No, Room_Type, Price_Per_Night FROM Rooms WHERE Availability = 1"
         cursor.execute(query)
         rooms = cursor.fetchall()
         return {"available_rooms": rooms}
@@ -56,9 +56,12 @@ def check_active_reservations(start_date: str, end_date: str):
     
     try:
         query = """
-            SELECT Reservation_ID, Guest_Name, Check_In_Date, Check_Out_Date 
-            FROM Reservations 
-            WHERE Check_In_Date <= %s AND Check_Out_Date >= %s
+            SELECT r.Reservation_ID, r.Guest_Name, r.Check_In_Date, r.Check_Out_Date,
+                   h.Hotel_Name, h.City
+            FROM Reservations r
+            JOIN Rooms rm ON r.Room_ID = rm.Room_ID
+            JOIN Hotels h ON rm.Hotel_ID = h.Hotel_ID
+            WHERE r.Check_In_Date <= %s AND r.Check_Out_Date >= %s
         """
         cursor.execute(query, (end_date, start_date))
         reservations = cursor.fetchall()

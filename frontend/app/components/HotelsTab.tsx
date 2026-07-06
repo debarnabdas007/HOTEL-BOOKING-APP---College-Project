@@ -3,6 +3,7 @@
 
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { API_ENDPOINTS } from "../config";
+import { useStats } from "../context/StatsContext";
 
 interface Hotel {
   Hotel_Name: string;
@@ -13,11 +14,10 @@ interface HotelsTabProps {
 }
 
 export default function HotelsTab({ onSearch }: HotelsTabProps) {
-  const [city, setCity] = useState("Kolkata");
+  const { searchedCity, setSearchedCity } = useStats();
   const [hotels, setHotels] = useState<Hotel[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [executedSQL, setExecutedSQL] = useState("");
 
   // Popular cities based on mock data in database
   const popularCities = ["Kolkata", "Mumbai", "Bangalore", "Delhi", "Chennai"];
@@ -32,9 +32,6 @@ export default function HotelsTab({ onSearch }: HotelsTabProps) {
     if (!cityName.trim()) return;
     setLoading(true);
     setError("");
-
-    // Document the exact SQL query executed in Backend/main.py
-    setExecutedSQL(`SELECT Hotel_Name FROM Hotels WHERE City = '${cityName}';`);
 
     try {
       const res = await fetch(API_ENDPOINTS.hotels.searchCity(cityName));
@@ -62,15 +59,10 @@ export default function HotelsTab({ onSearch }: HotelsTabProps) {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      fetchHotels(city);
+      fetchHotels(searchedCity);
     }, 0);
     return () => clearTimeout(timer);
-  }, [city, fetchHotels]);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    fetchHotels(city);
-  };
+  }, [searchedCity, fetchHotels]);
 
   return (
     <div className="space-y-6">
@@ -95,11 +87,11 @@ export default function HotelsTab({ onSearch }: HotelsTabProps) {
                 key={c}
                 type="button"
                 onClick={() => {
-                  setCity(c);
+                  setSearchedCity(c);
                   fetchHotels(c);
                 }}
                 className={`px-3.5 py-1.5 rounded-xl text-sm font-bold border transition-all cursor-pointer ${
-                  city.toLowerCase() === c.toLowerCase()
+                  searchedCity.toLowerCase() === c.toLowerCase()
                     ? "bg-primary-btn text-primary-btn-text"
                     : "bg-navbar-bg border-border text-secondary-text"
                 }`}
@@ -144,7 +136,7 @@ export default function HotelsTab({ onSearch }: HotelsTabProps) {
             No Hotels Found
           </h3>
           <p className="text-xs text-muted-text max-w-sm leading-relaxed">
-            No hotels are currently recorded in the database under &quot;{city}
+            No hotels are currently recorded in the database under &quot;{searchedCity}
             &quot;. Try searching for Kolkata, Mumbai, or Bangalore.
           </p>
         </div>
@@ -179,7 +171,7 @@ export default function HotelsTab({ onSearch }: HotelsTabProps) {
                   {hotel.Hotel_Name}
                 </h3>
                 <p className="text-sm text-muted-text font-semibold">
-                  Location: {city}
+                  Location: {searchedCity}
                 </p>
               </div>
             </div>

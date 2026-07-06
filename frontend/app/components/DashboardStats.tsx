@@ -4,7 +4,6 @@
 import React from "react";
 
 interface DashboardStatsProps {
-  searchedCity: string;
   hotelsInCityCount: number;
   availableRoomsCount: number;
   activeReservationsCount: number;
@@ -13,7 +12,6 @@ interface DashboardStatsProps {
 }
 
 export default function DashboardStats({
-  searchedCity,
   hotelsInCityCount,
   availableRoomsCount,
   activeReservationsCount,
@@ -22,9 +20,9 @@ export default function DashboardStats({
 }: DashboardStatsProps) {
   const stats = [
     {
-      name: `Hotels in ${searchedCity}`,
+      name: "Total Hotels",
       value: hotelsInCityCount,
-      description: `Matching city criteria`,
+      description: "Across all cities",
       icon: (
         <svg
           className="w-6 h-6 text-accent"

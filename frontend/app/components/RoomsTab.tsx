@@ -19,7 +19,6 @@ export default function RoomsTab({ onLoad }: RoomsTabProps) {
   const [rooms, setRooms] = useState<AvailableRoom[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [executedSQL, setExecutedSQL] = useState("");
 
   // Filtering states
   const [selectedType, setSelectedType] = useState("All");
@@ -34,11 +33,6 @@ export default function RoomsTab({ onLoad }: RoomsTabProps) {
   const fetchAvailableRooms = useCallback(async () => {
     setLoading(true);
     setError("");
-
-    // Set the exact SQL query executed in Backend/main.py
-    setExecutedSQL(
-      `SELECT Room_ID, Room_No, Room_Type, Price_Per_Night FROM Rooms WHERE Availability = 1;`,
-    );
 
     try {
       const res = await fetch(API_ENDPOINTS.rooms.available);
@@ -107,10 +101,10 @@ export default function RoomsTab({ onLoad }: RoomsTabProps) {
           <button
             onClick={fetchAvailableRooms}
             disabled={loading}
-            className="px-4 py-2 bg-secondary-btn border border-border hover:bg-secondary-btn-hover text-secondary-btn-text disabled:opacity-50 rounded-xl font-bold text-xs transition-all flex items-center gap-2 cursor-pointer w-fit"
+            className="px-4 py-2 bg-secondary-btn border border-border hover:bg-secondary-btn-hover text-secondary-btn-text disabled:opacity-50 rounded-xl font-bold text-sm transition-all flex items-center gap-2 cursor-pointer w-fit"
           >
             <svg
-              className={`w-3.5 h-3.5 ${loading ? "animate-spin" : ""}`}
+              className={`w-4 h-4 ${loading ? "animate-spin" : ""}`}
               fill="none"
               stroke="currentColor"
               strokeWidth="2.5"
@@ -119,7 +113,7 @@ export default function RoomsTab({ onLoad }: RoomsTabProps) {
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 7.89H18"
+                d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
               />
             </svg>
             Refresh
@@ -127,7 +121,7 @@ export default function RoomsTab({ onLoad }: RoomsTabProps) {
         </div>
 
         {/* Filters */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-border/60">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-3">
           {/* Room Type select */}
           <div className="space-y-2">
             <label className="text-sm font-bold text-secondary-text block">
