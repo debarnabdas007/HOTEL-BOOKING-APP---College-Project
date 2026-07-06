@@ -25,7 +25,7 @@ export default function DashboardStats({
       description: "Across all cities",
       icon: (
         <svg
-          className="w-6 h-6 text-accent"
+          className="w-6 h-6 text-rose-500"
           fill="none"
           stroke="currentColor"
           strokeWidth="2"

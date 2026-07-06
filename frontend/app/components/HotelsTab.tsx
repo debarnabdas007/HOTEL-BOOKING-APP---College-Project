@@ -92,7 +92,7 @@ export default function HotelsTab({ onSearch }: HotelsTabProps) {
                 }}
                 className={`px-3.5 py-1.5 rounded-xl text-sm font-bold border transition-all cursor-pointer ${
                   searchedCity.toLowerCase() === c.toLowerCase()
-                    ? "bg-primary-btn text-primary-btn-text"
+                    ? "bg-rose-500 text-primary-btn-text"
                     : "bg-navbar-bg border-border text-secondary-text"
                 }`}
               >
@@ -136,7 +136,8 @@ export default function HotelsTab({ onSearch }: HotelsTabProps) {
             No Hotels Found
           </h3>
           <p className="text-xs text-muted-text max-w-sm leading-relaxed">
-            No hotels are currently recorded in the database under &quot;{searchedCity}
+            No hotels are currently recorded in the database under &quot;
+            {searchedCity}
             &quot;. Try searching for Kolkata, Mumbai, or Bangalore.
           </p>
         </div>
@@ -147,7 +148,7 @@ export default function HotelsTab({ onSearch }: HotelsTabProps) {
               key={idx}
               className="p-5 rounded-xl border border-border bg-card-bg transition-all duration-300 flex items-center gap-4 group"
             >
-              <div className="p-3.5 rounded-xl bg-navbar-bg border border-border text-accent">
+              <div className="p-3.5 rounded-xl bg-navbar-bg border border-border text-rose-500">
                 <svg
                   className="w-6 h-6"
                   fill="none"
