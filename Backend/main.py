@@ -1,5 +1,7 @@
 from fastapi import FastAPI, HTTPException
+import random
 from database import get_db_connection
+from models import BookingRequest
 
 app = FastAPI(title="Hotel Booking DBMS API")
 
@@ -63,6 +65,68 @@ def check_active_reservations(start_date: str, end_date: str):
         return {"active_reservations": reservations}
         
     except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+        
+    finally:
+        cursor.close()
+        db.close()
+
+# Query 4: Book a room (POST Request)
+@app.post("/api/reservations/book")
+def book_room(booking: BookingRequest):
+    db = get_db_connection()
+    cursor = db.cursor(dictionary=True)
+    
+    try:
+        # --- NEW VALIDATION STEP ---
+        # First, check if the room actually exists and is available
+        check_query = "SELECT Availability FROM Rooms WHERE Room_ID = %s"
+        cursor.execute(check_query, (booking.Room_ID,))
+        room = cursor.fetchone()
+        
+        # If the room doesn't exist in the database
+        if not room:
+            raise HTTPException(status_code=404, detail="Room not found.")
+            
+        # If the room's availability is already 0
+        if room['Availability'] == 0:
+            raise HTTPException(status_code=400, detail="Sorry, this room is already booked!")
+        # ---------------------------
+
+        # Step 1: Generate a random ID for the new reservation
+        new_reservation_id = random.randint(2000, 9999)
+        
+        # Step 2: INSERT the new reservation into the database
+        insert_query = """
+            INSERT INTO Reservations (Reservation_ID, Room_ID, Guest_Name, Check_In_Date, Check_Out_Date) 
+            VALUES (%s, %s, %s, %s, %s)
+        """
+        cursor.execute(insert_query, (
+            new_reservation_id, 
+            booking.Room_ID, 
+            booking.Guest_Name, 
+            booking.Check_In_Date, 
+            booking.Check_Out_Date
+        ))
+        
+        # Step 3: UPDATE the room so it is no longer available
+        update_query = "UPDATE Rooms SET Availability = 0 WHERE Room_ID = %s"
+        cursor.execute(update_query, (booking.Room_ID,))
+        
+        # Step 4: COMMIT the transaction! 
+        db.commit()
+        
+        return {
+            "message": "Booking successful!", 
+            "Reservation_ID": new_reservation_id
+        }
+        
+    except HTTPException:
+        # If we raised an HTTP exception intentionally, just pass it through
+        raise
+    except Exception as e:
+        # If a database error fails, rollback the changes
+        db.rollback()
         raise HTTPException(status_code=500, detail=str(e))
         
     finally:
