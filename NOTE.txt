@@ -14,6 +14,8 @@ o Reservations: Reservation_ID (PK), Room_ID (FK), Guest_Name,
                 Check_In_Date, Check_Out_Date
                 
  What the DBMS Does: 
-It is used to fetch hotel names located within a specific 
-city , list rooms that are marked as available, and check active reservation windows 
+> It is used to fetch hotel names located within a specific 
+city , 
+> list rooms that are marked as available, 
+> and check active reservation windows 
 using date criteria via simple queries.
