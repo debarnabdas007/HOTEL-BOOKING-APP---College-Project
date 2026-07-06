@@ -1,0 +1,8 @@
+[ HOTELS Table ]                  [ ROOMS Table ]                    [ RESERVATIONS Table ]
+----------------                  ---------------                    ----------------------
+Hotel_ID (PK) <-------------------+ Hotel_ID (FK)                    Reservation_ID (PK)
+Hotel_Name                        | Room_ID (PK) <-------------------+ Room_ID (FK)
+City                              | Room_No                          | Guest_Name
+Star_Rating                       | Room_Type                        | Check_In_Date
+                                  | Price_Per_Night                  | Check_Out_Date
+                                  | Availability                     |

@@ -1,0 +1,19 @@
+Final lab Assignment: DBMS (2026)
+Using SQL queries (on any DBMS platform of choice (ex mySQL, Oracle, SQL Server, post greSQ 
+etc) develop the following applications with a front-end of your choice ( ex phpmyAdmin, 
+Navicat..or any other simple frontend)
+
+
+16. DBMS for Hotel Booking :-
+
+ Tables & Attributes:
+o Hotels: Hotel_ID (PK), Hotel_Name, City, Star_Rating
+o Rooms: Room_ID (PK), Hotel_ID (FK), Room_No, Room_Type, 
+        Price_Per_Night, Availability
+o Reservations: Reservation_ID (PK), Room_ID (FK), Guest_Name, 
+                Check_In_Date, Check_Out_Date
+                
+ What the DBMS Does: 
+It is used to fetch hotel names located within a specific 
+city , list rooms that are marked as available, and check active reservation windows 
+using date criteria via simple queries.
