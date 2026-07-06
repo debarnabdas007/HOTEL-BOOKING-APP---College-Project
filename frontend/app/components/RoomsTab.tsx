@@ -134,7 +134,7 @@ export default function RoomsTab({ onLoad }: RoomsTabProps) {
                   onClick={() => setSelectedType(type)}
                   className={`px-3.5 py-1.5 rounded-xl text-sm font-bold border transition-all cursor-pointer ${
                     selectedType === type
-                      ? "bg-primary-btn text-primary-btn-text border-primary-btn"
+                      ? "bg-rose-500 text-primary-btn-text"
                       : "bg-navbar-bg border-border text-secondary-text"
                   }`}
                 >

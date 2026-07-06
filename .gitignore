@@ -29,6 +29,8 @@ ENV/
 env/
 HOTEL_Book_venv/
 .venv
+.myenv
+myenv/
 
 # IDE & Editor
 .vscode/

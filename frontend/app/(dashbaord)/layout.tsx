@@ -45,7 +45,7 @@ export default function DashboardLayout({
               href="/hotels"
               className={`w-full text-left px-4 py-3 rounded-xl text-sm font-semibold transition-all flex items-center gap-3 ${
                 isActive("/hotels")
-                  ? "bg-primary-btn text-primary-btn-text shadow-md shadow-primary-btn/10"
+                  ? "bg-rose-500 text-primary-btn-text"
                   : "text-secondary-text hover:text-primary-text hover:bg-navbar-bg"
               }`}
             >
@@ -69,7 +69,7 @@ export default function DashboardLayout({
               href="/rooms"
               className={`w-full text-left px-4 py-3 rounded-xl text-sm font-semibold transition-all flex items-center gap-3 ${
                 isActive("/rooms")
-                  ? "bg-primary-btn text-primary-btn-text shadow-md shadow-primary-btn/10"
+                  ? "bg-rose-500 text-primary-btn-text"
                   : "text-secondary-text hover:text-primary-text hover:bg-navbar-bg"
               }`}
             >
@@ -93,7 +93,7 @@ export default function DashboardLayout({
               href="/reservations"
               className={`w-full text-left px-4 py-3 rounded-xl text-sm font-semibold transition-all flex items-center gap-3 ${
                 isActive("/reservations")
-                  ? "bg-primary-btn text-primary-btn-text shadow-md shadow-primary-btn/10"
+                  ? "bg-rose-500 text-primary-btn-text"
                   : "text-secondary-text hover:text-primary-text hover:bg-navbar-bg"
               }`}
             >
