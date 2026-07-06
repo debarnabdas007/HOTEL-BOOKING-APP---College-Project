@@ -5,6 +5,9 @@
 This project is a **Three-Tier (T3) Hotel Booking** application connecting a React frontend to a MySQL database via a Python FastAPI backend. It is designed to efficiently store and retrieve hotel data, room availability, and active guest reservations securely.
 
 ---
+<img width="1600" height="900" alt="Image" src="https://github.com/user-attachments/assets/6f83e7d9-c123-43bb-bc25-d8779532e2fd" />
+
+---
 
 ## Problem Statement
 
