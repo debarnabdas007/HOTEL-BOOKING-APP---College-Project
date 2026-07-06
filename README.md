@@ -96,7 +96,7 @@ DB_NAME=HotelBookingDB
 
 ### 3. Backend Setup (FastAPI)
 
-1. Open a terminal in the `backend/` folder.
+1. Open a terminal in the `Backend/` folder.
 2. Install the required Python packages:
 
 ```bash
