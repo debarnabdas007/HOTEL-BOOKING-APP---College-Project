@@ -32,12 +32,18 @@ It is used to fetch hotel names located within a specific city, list rooms that 
 - [Introduction](#introduction)
 - [Problem Statement](#problem-statement)
 - [Entity-Relationship Diagram](#entity-relationship-diagram)
+- [Relational Model](#relational-model)
 - [Project Structure](#project-structure)
 - [Setup Instructions](#setup-instructions)
 
 ---
 
 ## Entity-Relationship Diagram
+
+<img width="1536" height="1024" alt="Image" src="https://github.com/user-attachments/assets/d1b00c5a-aea4-43d8-8337-1719aabeb5a2" />
+
+---
+## Relational Model
 
 ```
 [ HOTELS Table ]                  [ ROOMS Table ]                    [ RESERVATIONS Table ]
@@ -49,7 +55,6 @@ Star_Rating                       | Room_Type                        | Check_In_
                                   | Price_Per_Night                  | Check_Out_Date
                                   | Availability                     |
 ```
-
 ---
 
 ## Project Structure
